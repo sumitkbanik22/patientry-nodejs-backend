@@ -1,0 +1,31 @@
+{
+  "name": "patientry-nodejs-backend",
+  "version": "1.0.0",
+  "description": "backend code that will help store and fetch patient medical history",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sumitkbanik22/patientry-nodejs-backend.git"
+  },
+  "keywords": [
+    "medical-history",
+    "patient"
+  ],
+  "author": "Sumit K Banik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sumitkbanik22/patientry-nodejs-backend/issues"
+  },
+  "homepage": "https://github.com/sumitkbanik22/patientry-nodejs-backend#readme",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.3",
+    "nodemailer": "^6.7.2"
+  }
+}

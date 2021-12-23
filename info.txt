@@ -1,0 +1,16 @@
+Folders ->
+
+/Controllers- This folder would contain all the functions for your APIs.
+Naming of files- xxxxx.controllers.js
+/Routes- This folder would contain all the routes that you have created using Express Router and what they do would be exported from a Controller file
+Naming of files- xxxxx.routes.js
+/Models- This folder would contain all your schema files and and the functions required for the schema would also lie over here.
+Naming of files- xxxxx.js
+/Middleware- This folder would contain all the middleware that you have created, whether it be authentication/some other function.
+Naming of files- xxxxx.middleware.js
+/Utils(Optional)- The common functions that you would require multiple times throughout your code
+Naming of files- Normal project file naming scheme
+/Templates(Optional)- If your code requires you to send certain emails/ HTML code to the client-side, store it in this files
+Naming of files- Normal project file naming scheme
+/Config(Optional)- Configuration files for third party APIs/services like passport/S3,etc
+Naming of files- Normal project file naming scheme
