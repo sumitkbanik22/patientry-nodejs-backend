@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const body_parser = require('body-parser');
 const mongoose = require('mongoose');
-const { port, base_url, db_user, db_pass, db_name } = require('./configs/config');
+const { port, base_url, db_user, db_pass, db_name, node_env } = require('./configs/config');
 
 const app = express();
 
@@ -18,6 +18,38 @@ app.use(body_parser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(body_parser.json());
+
+// log in development environment
+if (node_env === "development") {
+    const morgan = require("morgan");
+    app.use(morgan("dev"));
+  }  
+
+// routes
+require('./routes/auth.routes')(app);
+
+// page not found error handling  middleware
+
+app.use("*", (req, res, next) => {
+    const error = {
+      status: 404,
+      message: 'API endpoint does not found',
+    };
+    next(error);
+});
+  
+// global error handling middleware
+app.use((err, req, res, next) => {
+    console.log(err);
+    const status = err.status || 500;
+    const message = err.message || 'Something went wrong';
+    const data = err.data || null;
+    res.status(status).json({
+        type: "error",
+        message,
+        data,
+    });
+});
 
 
 app.listen(PORT, (err) => {
@@ -34,5 +66,5 @@ mongoose.connect(`mongodb+srv://${db_user}:${db_pass}@cluster0.2v6t0.mongodb.net
     console.log("Successfully connected to MongoDB.");
 }).catch(err => {
     console.error("Connection error: ", err);
-    process.exit();
+    process.exit(1);
 });
