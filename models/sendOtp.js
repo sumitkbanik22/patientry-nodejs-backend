@@ -6,7 +6,7 @@ const SendOtp = mongoose.model(
     mobile : Number,
     otp: Number,
     expireAt: { type: Date, default: new Date((new Date()).getTime() + 60000) }
-  })
+  }, { timestamps: true })
 );
 
 module.exports = SendOtp;
