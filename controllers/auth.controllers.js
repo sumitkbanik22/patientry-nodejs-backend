@@ -51,7 +51,7 @@ exports.verifyOTP = async (req, res, next) => {
             return;
         } else if (sentOtpObj) {
             const otp_entered_time = new Date();
-            if (otp_entered_time.getTime() > (new Date(sentOtpObj.expireAt)).getTime()) {
+            if ((otp_entered_time) > (new Date(sentOtpObj.expireAt))) {
                 await SendOtp.deleteOne({mobile : mobile_number, otp: otp});
                 next({ status: 400, message: 'OTP has expired' });
                 return;
