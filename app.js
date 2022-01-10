@@ -9,9 +9,7 @@ const app = express();
 
 const PORT = port || 8626;
 
-app.use(cors({
-    origin: `${base_url}`
-}));
+app.use(cors());
 
 // parse application/x-www-form-urlencoded
 app.use(body_parser.urlencoded({ extended: false }));
