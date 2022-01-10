@@ -58,11 +58,11 @@ app.use((err, req, res, next) => {
 });
 
 
-app.listen(PORT, (err) => {
+app.listen(process.env.PORT, '0.0.0.0', (err) => {
     if (err) {
-      console.log(`Error in running the server: ${err}`);
+      console.log(`Error in running the server: ${process.env.PORT}`);
     }
-    console.log(`Server is running on port: ${PORT}`);
+    console.log(`Server is running on port: ${process.env.PORT}`);
 });
 
 mongoose.connect(`mongodb+srv://sumitkb:champ221@cluster0.2v6t0.mongodb.net/patientry_db?retryWrites=true&w=majority`, {
