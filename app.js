@@ -65,7 +65,7 @@ app.listen(PORT, (err) => {
     console.log(`Server is running on port: ${PORT}`);
 });
 
-mongoose.connect(`mongodb+srv://${db_user}:${db_pass}@cluster0.2v6t0.mongodb.net/${db_name}?retryWrites=true&w=majority`, {
+mongoose.connect(`mongodb+srv://sumitkb:champ221@cluster0.2v6t0.mongodb.net/patientry_db?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
