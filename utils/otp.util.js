@@ -15,7 +15,7 @@ exports.generateOTP = (otp_length) => {
 exports.fast2smsSendOtp = async ({ message, contactNumber }, next) => {
     try {
       const res = await fast2sms.sendMessage({
-        authorization: fast2sms_authkey || 'REHbps3Jv9dz7FLU1nDwelZQWAXNmOGTr4865VqhtIkcPaf2yiwxG6SryRp3zb4JELCuKBOjmAWMeYI8',
+        authorization: fast2sms_authkey,
         message,
         numbers: [contactNumber],
       });

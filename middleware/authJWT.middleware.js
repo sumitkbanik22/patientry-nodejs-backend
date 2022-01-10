@@ -7,7 +7,7 @@ const RefreshToken = require("../models/refreshToken");
 const User = require("../models/user");
 
 function getAccessToken(payload) {
-    const access_token = jwt.sign({user: payload}, access_token_secret ? access_token_secret : 'access_patentry_@2021', { expiresIn: '10min' });
+    const access_token = jwt.sign({user: payload}, access_token_secret, { expiresIn: '10min' });
     return access_token
 }
 
@@ -25,7 +25,7 @@ function getRefreshToken(payload) {
         RefreshToken.deleteMany({user_id: payload.id});
     }
 
-    const refresh_token = jwt.sign({user: payload}, refresh_token_secret ? refresh_token_secret : 'refresh_patentry_@2021', {expiresIn: '1d'});
+    const refresh_token = jwt.sign({user: payload}, refresh_token_secret, {expiresIn: '1d'});
 
     RefreshToken.insertMany({
         id: uuidv4(),
@@ -45,7 +45,7 @@ function verifyJWTToken(token) {
         // Remove Bearer from string
         token = token.slice(7, token.length);
 
-        jwt.verify(token, access_token_secret ? access_token_secret : 'access_patentry_@2021', (err, decoded_token) => {
+        jwt.verify(token, access_token_secret, (err, decoded_token) => {
             if (err) {
                 return reject(err.message);
             }
@@ -62,7 +62,7 @@ function verifyJWTToken(token) {
 
 function refreshToken(token) {
     // get decoded data
-    const decoded_token = jwt.verify(token, refresh_token_secret ? refresh_token_secret : 'refresh_patentry_@2021');
+    const decoded_token = jwt.verify(token, refresh_token_secret);
 
     // find the user in the user table
     const user = User.findOne({id: decoded_token.user.id});
@@ -105,7 +105,7 @@ function refreshToken(token) {
 
 function getUpdatedRefreshToken(old_refresh_token, payload) {
     // create new refresh token
-    const new_refresh_token = jwt.sign({user: payload}, refresh_token_secret ? refresh_token_secret : 'refresh_patentry_@2021', { expiresIn: '1d' });
+    const new_refresh_token = jwt.sign({user: payload}, refresh_token_secret, { expiresIn: '1d' });
 
     // replace current refresh token with new one
     const current_refresh_token_obj = RefreshToken.find({refresh_token: old_refresh_token});

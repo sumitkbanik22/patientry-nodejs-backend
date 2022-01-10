@@ -7,7 +7,7 @@ const { port, base_url, db_user, db_pass, db_name, node_env } = require('./confi
 
 const app = express();
 
-const PORT = process.env.port || 3000;
+const PORT = port || 8626;
 
 app.use(cors());
 
@@ -58,14 +58,14 @@ app.use((err, req, res, next) => {
 });
 
 
-app.listen(process.env.PORT, '0.0.0.0', (err) => {
+app.listen(PORT, (err) => {
     if (err) {
-      console.log(`Error in running the server: ${process.env.PORT}`);
+      console.log(`Error in running the server: ${err}`);
     }
-    console.log(`Server is running on port: ${process.env.PORT}`);
+    console.log(`Server is running on port: ${PORT}`);
 });
 
-mongoose.connect(`mongodb+srv://sumitkb:champ221@cluster0.2v6t0.mongodb.net/patientry_db?retryWrites=true&w=majority`, {
+mongoose.connect(`mongodb+srv://${db_user}:${db_pass}@cluster0.2v6t0.mongodb.net/${db_name}?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
