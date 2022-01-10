@@ -9,6 +9,14 @@ const authJWT = require("../middleware/authJWT.middleware");
 exports.sendOTP = async (req, res, next) => {
     try {
 
+        const { mobile_number} = req.body;
+
+        const sentOtpObjExits = await SendOtp.findOne({mobile : mobile_number});
+
+        if (sentOtpObjExits) {
+            await SendOtp.deleteOne({mobile : mobile_number});
+        }
+
         // generate otp
         const otp = generateOTP(6);
 
@@ -18,13 +26,13 @@ exports.sendOTP = async (req, res, next) => {
             otp: otp
         })
 
-        await fast2smsSendOtp(
-            {
-              message: `Your OTP is ${otp}`,
-              contactNumber: req.body.mobile_number,
-            },
-            next
-        );
+        // await fast2smsSendOtp(
+        //     {
+        //       message: `Your OTP is ${otp}`,
+        //       contactNumber: req.body.mobile_number,
+        //     },
+        //     next
+        // );
 
         res.status(201).json({
             type: "success",
@@ -50,20 +58,19 @@ exports.verifyOTP = async (req, res, next) => {
             next({ status: 400, message: 'OTP not verified' });
             return;
         } else if (sentOtpObj) {
-            const otp_entered_time = new Date();
-            if ((otp_entered_time) > (new Date(sentOtpObj.expireAt))) {
+            const otp_entered_time = new Date(new Date());
+            const expiredOtpTime = new Date(new Date(sentOtpObj.expireAt).getTime() + 65000);
+            if ((otp_entered_time) > (expiredOtpTime)) {
                 await SendOtp.deleteOne({mobile : mobile_number, otp: otp});
                 next({ status: 400, message: 'OTP has expired' });
                 return;
             }
         }
-
+        await SendOtp.deleteOne({mobile : mobile_number, otp: otp});
         res.status(201).json({
             type: "success",
             message: "OTP verified successfully"
         });
-
-        await SendOtp.deleteOne({mobile : mobile_number, otp: otp});
 
     } catch (error) {
         next(error);

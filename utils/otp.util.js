@@ -9,7 +9,7 @@ exports.generateOTP = (otp_length) => {
     for (let i = 0; i < otp_length; i++) {
       OTP += digits[Math.floor(Math.random() * 10)];
     }
-    return OTP;
+    return Number(OTP);
 };
 
 exports.fast2smsSendOtp = async ({ message, contactNumber }, next) => {
