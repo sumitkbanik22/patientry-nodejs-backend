@@ -4,7 +4,7 @@ dotenv.config();
 
 module.exports = {
   port: process.env.PORT,
-  base_url: process.env.BASE_URL,
+  // base_url: process.env.BASE_URL,
   fast2sms_authkey: process.env.FAST2SMS_AUTHKEY,
   db_user: process.env.DB_USER,
   db_pass: process.env.DB_PASS,
