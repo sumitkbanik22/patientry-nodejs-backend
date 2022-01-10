@@ -2,16 +2,11 @@ const fast2sms = require("fast-two-sms");
 const { fast2sms_authkey } = require('../configs/config');
 
 exports.generateOTP = (otp_length) => {
-    // Declare a digits variable
-    // which stores all digits
-    var digits = "123456789";
-    let OTP = "";
-    for (let i = 0; i < otp_length; i++) {
-      OTP += digits[Math.floor(Math.random() * 10)];
-    }
-    if (OTP) {
-      return Number(OTP);
-    }
+    
+    const Otp = Math.floor(Math.random() * (9 * (Math.pow(10, otp_length - 1)))) + (Math.pow(10, otp_length - 1));
+
+    return Otp;
+    
 };
 
 exports.fast2smsSendOtp = async ({ message, contactNumber }, next) => {
