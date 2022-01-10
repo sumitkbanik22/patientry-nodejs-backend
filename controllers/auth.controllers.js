@@ -26,13 +26,13 @@ exports.sendOTP = async (req, res, next) => {
             otp: otp
         })
 
-        // await fast2smsSendOtp(
-        //     {
-        //       message: `Your OTP is ${otp}`,
-        //       contactNumber: req.body.mobile_number,
-        //     },
-        //     next
-        // );
+        await fast2smsSendOtp(
+            {
+              message: `Your OTP is ${otp}`,
+              contactNumber: req.body.mobile_number,
+            },
+            next
+        );
 
         res.status(201).json({
             type: "success",
