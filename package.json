@@ -4,7 +4,7 @@
   "description": "backend code that will help store and fetch patient medical history",
   "main": "app.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
