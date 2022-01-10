@@ -7,7 +7,7 @@ const { port, base_url, db_user, db_pass, db_name, node_env } = require('./confi
 
 const app = express();
 
-const PORT = port;
+const PORT = port || 8626;
 
 app.use(cors({
     origin: `${base_url}`
