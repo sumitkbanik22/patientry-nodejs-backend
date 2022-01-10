@@ -23,9 +23,17 @@ app.use(body_parser.json());
 if (node_env === "development") {
     const morgan = require("morgan");
     app.use(morgan("dev"));
-  }  
+  }
 
 // routes
+
+app.get('/', (req, res) => {
+    res
+      .status(200)
+      .send('Hello patientry server is running')
+      .end();
+});
+
 require('./routes/auth.routes')(app);
 
 // page not found error handling  middleware
